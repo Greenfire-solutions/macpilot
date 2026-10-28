@@ -1,0 +1,81 @@
+MACPILOT: READ ME FIRST
+=======================
+
+WHAT IT IS FOR
+MacPilot lets a script, or an AI assistant like Claude Code, press buttons on your Mac for
+you: click, double-click, drag, scroll, type and press key combinations, in ANY app.
+It also tells you what button is under a spot on the screen before anything is clicked.
+
+It is built for the apps that ordinary Mac automation cannot press, such as CapCut, Slack,
+Discord and other apps made from web pages. Typical uses: repeat the same clicks in an
+editing app, let Claude Code drive an app that has no other way in, or test your own app.
+
+It is a small command you type in Terminal (or call from Python). It has no window.
+It does nothing on its own: it only clicks when you, or a script you run, tells it to.
+
+WHAT YOU NEED
+- A Mac with macOS 12 (Monterey) or newer. Intel or Apple Silicon both work: the program in
+  the bin folder is ready-made for both. Nothing to install, no developer tools needed.
+- For the Python examples only: Python 3. If your Mac does not have it, typing python3 in
+  Terminal offers to install it (or get it from python.org).
+
+SET IT UP (about 2 minutes)
+1. Double-click the zip to unzip it. Move the MacPilot folder somewhere you keep your work,
+   for example Documents.
+2. Open the folder and double-click "Start MacPilot".
+   The first time, your Mac checks who made it:
+   - macOS 12 to 14: right-click it (or Control-click), choose Open, then Open again.
+   - macOS 15 or newer: it says it cannot be opened. Press Done, open
+     System Settings > Privacy & Security, scroll down to the message about
+     "Start MacPilot", press Open Anyway and type your Mac password. Then double-click it again.
+3. A Terminal window opens and walks you through three steps. It never clicks anything.
+
+THE ACCESSIBILITY PERMISSION (the one step you must do)
+macOS blocks any program from clicking for you until you allow it. You give the permission
+to the app you type commands in (Terminal, iTerm or Warp), not to MacPilot itself.
+
+- macOS 13 or newer: System Settings > Privacy & Security > Accessibility
+- macOS 12: System Preferences > Security & Privacy > Privacy > Accessibility
+  (click the padlock at the bottom first and type your Mac password)
+
+Turn the switch on for Terminal. If Terminal is not in the list, press + and pick it from
+Applications > Utilities. Then quit Terminal completely and open it again.
+"Start MacPilot" opens this page for you and checks it worked.
+You can check any time by typing:  bin/macpilot access   (it says "granted" or "not granted")
+
+TRY IT (in Terminal, inside the MacPilot folder)
+  bin/macpilot screen                  your screen size (run this first)
+  bin/macpilot peek                    what is under your mouse right now
+  bin/macpilot pos                     where your mouse is
+  python3 examples/look_then_click.py --look
+                                       point at something and MacPilot describes it
+
+The commands that DO something (they act on whatever app is in front):
+  bin/macpilot click X Y               click at a spot (add 2 for a double-click)
+  bin/macpilot type "hello"            type text
+  bin/macpilot key cmd+s               press a key combination
+  bin/macpilot scroll 0 -300           scroll
+  bin/macpilot drag X1 Y1 X2 Y2        drag
+python3 examples/look_then_click.py (without --look) shows you what is under the mouse and
+asks before it clicks. Start there.
+
+GOOD TO KNOW
+- It moves your real mouse, so do not use the Mac while a script is clicking.
+- Spots are in "points", not screenshot pixels. On most Mac screens a screenshot is twice
+  as big, so divide screenshot positions by 2. "bin/macpilot screen" tells you the number.
+- Password boxes block typed text on purpose. Clicking still works.
+- Using it with Claude Code: copy the folder skills/mac-ui-control into ~/.claude/skills/
+  and Claude Code learns how to use MacPilot safely (look, check, then click).
+
+MORE DETAIL
+README.md has the full command list and the Python guide. The docs folder covers
+permissions, screen coordinates and which macOS versions were tested.
+
+Only want to rebuild the program yourself? That is optional and needs Apple's free
+Command Line Tools (type  xcode-select --install  in Terminal), then type  make
+
+LICENSE
+GREENFIRE_LICENSE.md: use it for yourself and your business, change it as you like,
+do not resell or share it.
+
+Help: https://greenfire.earth

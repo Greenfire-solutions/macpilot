@@ -4,10 +4,11 @@
 | OS | macpilot | notes |
 |---|---|---|
 | macOS 12.6.8 Monterey (x86_64) | ✅ works | click/drag/type/key/scroll/peek all verified |
+| Apple Silicon (arm64) | built, not yet run on one | `bin/macpilot` is a universal binary (x86_64 + arm64, ad-hoc signed, macOS 11+); the arm64 half compiles from the same file but has not been tried on an M-series Mac |
 
 ## The macOS 13+ problem with computer-use MCP servers
 
-Agent-native computer-use MCP servers are architecturally better than this tool — they are
+Agent-native computer-use MCP servers are architecturally better than this tool: they are
 accessibility-first with pixel fallback, expose native agent tools, and some act **without
 moving your cursor or stealing focus**. If you are on macOS 13+, prefer them.
 
@@ -28,7 +29,7 @@ bundled Swift/AppKit binary is built against a newer SDK than Monterey ships.
 `computer-use-mcp` is likewise a Swift binary and generally expects a modern toolchain
 (Monterey ships Swift 5.7.2), so treat it as macOS 13+ unless proven otherwise.
 
-**Conclusion:** on macOS 12, macpilot/cliclick are not a fallback — they are the option.
+**Conclusion:** on macOS 12, macpilot/cliclick are not a fallback: they are the option.
 
 ## Architecture note
 macpilot deliberately depends only on `ApplicationServices` and `Carbon`, both stable

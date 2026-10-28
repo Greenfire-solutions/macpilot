@@ -6,7 +6,7 @@ HID-level input via CGEvent, so it works with apps that expose no accessibility 
     from macpilot import Session
     s = Session(app="CapCut").focus()
     s.look("before.png")
-    x, y = s.at(767, 1285)        # screenshot pixels -> logical points
+    x, y = s.at(px, py)           # a screenshot pixel you checked -> logical points
     s.click(x, y, count=2, strict=False)
     s.look("after.png")
 

@@ -1,6 +1,6 @@
-// macuse - general macOS input control via CGEvent (HID level).
+// macpilot - general macOS input control via CGEvent (HID level).
 // Works with EVERY app: native, Electron/CEF, browsers and page content.
-// build: clang -O2 -o macuse macuse.c -framework ApplicationServices -framework Carbon
+// build: make   (or: clang -O2 -o bin/macpilot core/macpilot.c -framework ApplicationServices -framework Carbon)
 #include <ApplicationServices/ApplicationServices.h>
 #include <Carbon/Carbon.h>
 #include <stdio.h>
@@ -128,6 +128,25 @@ static void peek(double x,double y){                    // what is actually unde
   } else printf("no accessibility element at %.0f,%.0f (likely web/canvas content)\n",x,y);
   CFRelease(sys);
 }
+// Proves Accessibility is granted to whatever launched us (the terminal app), by
+// doing a harmless read that only works with the grant. Never prompts, never clicks.
+// exit 0 = granted, 3 = not granted.
+static int access_check(void){
+  int trusted=AXIsProcessTrusted();
+  AXUIElementRef sys=AXUIElementCreateSystemWide(), el=NULL;
+  CFTypeRef v=NULL;
+  AXError err=AXUIElementCopyAttributeValue(sys,kAXFocusedApplicationAttribute,&v);
+  if(v) CFRelease(v);
+  if(err!=kAXErrorSuccess && err!=kAXErrorNoValue){   // some apps do not answer; try the menu bar corner
+    err=AXUIElementCopyElementAtPosition(sys,1.0f,1.0f,&el);
+    if(el) CFRelease(el);
+  }
+  CFRelease(sys);
+  int readable = err==kAXErrorSuccess || err==kAXErrorNoValue;
+  if(trusted && readable){ printf("granted\n"); return 0; }
+  printf("not granted (trusted=%d, read error %d)\n",trusted,(int)err);
+  return 3;
+}
 static void screens(void){
   CGDirectDisplayID ids[8]; uint32_t n=0;
   CGGetActiveDisplayList(8,ids,&n);
@@ -147,6 +166,7 @@ static void screens(void){
 int main(int argc,char**argv){
   if(argc<2) goto usage;
   const char*c=argv[1];
+  if(!strcmp(c,"access")) return access_check();
   if(!strcmp(c,"pos")){ CGPoint p=cur(); printf("%.0f %.0f\n",p.x,p.y); }
   else if(!strcmp(c,"screen")) screens();
   else if(!strcmp(c,"peek")){
@@ -172,7 +192,8 @@ int main(int argc,char**argv){
   return 0;
 usage:
   fprintf(stderr,
-   "macuse - macOS input control (logical points, not screenshot pixels)\n\n"
+   "macpilot - macOS input control (logical points, not screenshot pixels)\n\n"
+   "  access                       is Accessibility granted? (exit 0 yes, 3 no)\n"
    "  pos                          print cursor position\n"
    "  screen                       displays + Retina scale factor\n"
    "  peek [X Y]                   what UI element is under the point\n"

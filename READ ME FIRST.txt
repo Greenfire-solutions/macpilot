@@ -76,7 +76,7 @@ Only want to rebuild the program yourself? That is optional and needs Apple's fr
 Command Line Tools (type  xcode-select --install  in Terminal), then type  make
 
 LICENSE
-GREENFIRE_LICENSE.md: use it for yourself and your business, change it as you like,
-do not resell or share it.
+The MIT License (the LICENSE file): use it, change it, share it or sell it,
+as long as the license notice stays with it.
 
 Help: https://greenfire.earth

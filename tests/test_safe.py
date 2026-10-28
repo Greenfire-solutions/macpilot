@@ -151,9 +151,10 @@ class BuyerText(unittest.TestCase):
             self.assertNotIn("~/dev/macpilot", t, f)
             self.assertNotIn("git clone https://github.com/Greenfire-solutions", t, f)
 
-    def test_readme_points_to_greenfire_license(self):
+    def test_readme_states_the_mit_license(self):
         t = (ROOT / "README.md").read_text()
-        self.assertIn("GREENFIRE_LICENSE.md", t); self.assertNotIn("\nMIT", t)
+        self.assertIn("MIT", t); self.assertNotIn("do not resell", t)
+        self.assertTrue((ROOT / "LICENSE").read_text().startswith("MIT License"))
 
     def test_start_script_never_acts_on_screen(self):
         t = (ROOT / "Start MacPilot.command").read_text()

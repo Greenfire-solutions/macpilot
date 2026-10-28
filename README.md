@@ -131,5 +131,5 @@ Copy `skills/mac-ui-control` into `~/.claude/skills/`. Claude Code then knows to
 check and only then click.
 
 ## License
-See `GREENFIRE_LICENSE.md` in this folder: use it for yourself and your business,
-change it as you like, do not resell or share it.
+MIT (see `LICENSE`): use it, change it, share it or sell it, as long as the
+license notice stays with it.

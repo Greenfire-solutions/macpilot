@@ -12,9 +12,8 @@ does something when you or your script tells it to.
 
 ## Install
 
-1. On GitHub press the green **Code** button, then **Download ZIP** (or `git clone
-   https://github.com/Greenfire-solutions/macpilot.git`). Unzip it and move the folder
-   somewhere you keep your work, for example Documents.
+1. On GitHub press the green **Code** button, then **Download ZIP**. Unzip it and move the folder somewhere you keep your work,
+   for example Documents.
 2. Double-click **Start MacPilot** (first time: right-click > Open > Open on macOS 12 to 14;
    on macOS 15+ allow it under System Settings > Privacy & Security > Open Anyway).
 3. It checks the program runs, walks you through the Accessibility permission, and offers to
@@ -132,4 +131,5 @@ Copy `skills/mac-ui-control` into `~/.claude/skills/`. Claude Code then knows to
 check and only then click.
 
 ## License
-MIT, see `LICENSE`: free to use, change and share.
+See `GREENFIRE_LICENSE.md` in this folder: use it for yourself and your business,
+change it as you like, do not resell or share it.
